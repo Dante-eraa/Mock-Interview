@@ -3,7 +3,7 @@ import { useAuth } from "@clerk/clerk-react"
 import Container from "./Container"
 import LogoContainer from "./LogoContainer"
 import NavigationRoutes from "./NavigationRoutes"
-
+import { NavLink } from "react-router-dom"
 
 const Header = () => {
     const { userId } = useAuth()
@@ -15,6 +15,7 @@ const Header = () => {
                     <LogoContainer />
                     <nav className="hidden md:flex items-center gap-3 ">
                         <NavigationRoutes />
+                        {userId && <NavLink to="/generate" className={({ isActive }) => cn("text-base text-neutral-600 ", isActive && "text-neutral-900 font-semibold")}>Take An Inteview</NavLink>}
                     </nav>
 
                 </div>
