@@ -61,11 +61,25 @@ const Home = () => {
             </Container>
             <div className="w-full my-12">
                 <Marquee >
-                    <img src={FirebaseImg} alt="Logo" className="w-44 h-44 xl:w-52 xl:h-52 object-contain grayscale mx-12 " />
-                    <img src={MeetImg} alt="Logo" className="w-44 h-44 xl:w-52 xl:h-52 object-contain grayscale mx-12" />
-                    <img src={ZoomImg} alt="Logo" className="w-20 h-20  xl:w-40 xl:h-40 object-contain grayscale mx-12" />
-                    <img src={TailwindCssImg} alt="Logo" className="w-44 h-44 xl:w-52 xl:h-52 object-contain grayscale mx-12" />
-                    <img src={MicrosoftImg} alt="Logo" className="w-44 h-44 xl:w-52 xl:h-52 object-contain grayscale mx-12" />
+                    <div className="flex items-center justify-center max-w-[200px] mx-12">
+                        <img src={FirebaseImg} alt="Logo" className="w-full  object-contain grayscale  " />
+                    </div>
+                    <div className="flex items-center justify-center max-w-[200px] mx-12">
+                        <img src={MeetImg} alt="Logo" className="w-full object-contain grayscale " />
+
+                    </div>
+                    <div className="flex items-center justify-center max-w-[200px] mx-12">
+                        <img src={ZoomImg} alt="Logo" className="w-full object-contain grayscale " />
+
+                    </div>
+                    <div className="flex items-center justify-center max-w-[200px] mx-12">
+                        <img src={TailwindCssImg} alt="Logo" className="w-full object-contain grayscale " />
+
+                    </div>
+                    <div className="flex items-center justify-center max-w-[200px] mx-12">
+                        <img src={MicrosoftImg} alt="Logo" className="w-full xl:w-52 xl:h-52 object-contain grayscale " />
+                    </div>
+
                 </Marquee>
             </div>
 
