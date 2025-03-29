@@ -1,19 +1,23 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
-import PublicLayout from "@/layouts/PublicLayout"
-import Home from "@/routes/Home"
-import AuthLayout from "@/layouts/AuthLayout"
-import SignInPage from "@/routes/SignIn"
-import SignUpPage from "@/routes/SignUp"
-import ProtectedRoutes from "@/layouts/ProtectedRoutes"
-import MainLayout from "./layouts/MainLayout"
-
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import PublicLayout from "@/layouts/PublicLayout";
+import Home from "@/routes/Home";
+import AuthLayout from "@/layouts/AuthLayout";
+import SignInPage from "@/routes/SignIn";
+import SignUpPage from "@/routes/SignUp";
+import ProtectedRoutes from "@/layouts/ProtectedRoutes";
+import MainLayout from "./layouts/MainLayout";
+import Generate from "./components/Generate";
+import Dashboard from "./routes/Dashboard";
 
 const App = () => {
   return (
     <div className="">
-      <Router future={{
-        v7_startTransition: true, v7_relativeSplatPath: true,
-      }}>
+      <Router
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+        }}
+      >
         <Routes>
           <Route element={<PublicLayout />}>
             <Route index element={<Home />} />
@@ -26,14 +30,21 @@ const App = () => {
 
           {/*Protected Routes*/}
 
-          <Route element={<ProtectedRoutes><MainLayout /></ProtectedRoutes>}>
-
+          <Route
+            element={
+              <ProtectedRoutes>
+                <MainLayout />
+              </ProtectedRoutes>
+            }
+          >
+            <Route path="/generate" element={<Generate />}>
+              <Route index element={<Dashboard />} />
+            </Route>
           </Route>
-
         </Routes>
       </Router>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
