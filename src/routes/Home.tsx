@@ -12,6 +12,8 @@ import ZoomImg from "@/assets/img/logo/zoom.png";
 
 
 import HeroImg from "@/assets/img/Hero.png"
+import OfficeImg from "@/assets/img/Interview.webp"
+import { Link } from "react-router-dom";
 
 const Home = () => {
     return (
@@ -59,7 +61,8 @@ const Home = () => {
                     </div>
                 </div>
             </Container>
-            <div className="w-full my-12">
+            <div className="w-full my-12 text-center">
+                <h1 className="font-bold text-4xl lg:text-5xl mb-2 text-gray-700">Our Partners</h1>
                 <Marquee >
                     <div className="flex items-center justify-center max-w-[200px] mx-12">
                         <img src={FirebaseImg} alt="Logo" className="w-full  object-contain grayscale  " />
@@ -79,10 +82,22 @@ const Home = () => {
                     <div className="flex items-center justify-center max-w-[200px] mx-12">
                         <img src={MicrosoftImg} alt="Logo" className="w-full xl:w-52 xl:h-52 object-contain grayscale " />
                     </div>
-
                 </Marquee>
             </div>
-
+            <Container> <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+                <div className="col-span-1 md:col-span-3 mb-2">
+                    <img src={OfficeImg} className="rounded-xl" alt="Office" />
+                </div>
+                <div className="col-span-1 md:col-span-2 mb-2 gap-3 flex flex-col justify-center items-center ">
+                    <p className="text-sm lg:text-xl text-center text-muted-foreground">Ace your interview with AI-driven practice, real-time feedback, and expert insights to boost your confidence and secure your dream job</p>
+                    <Button className=" bg-sky-500">
+                        <Link to={"/generate"}>
+                            Generate
+                        </Link>
+                    </Button>
+                </div>
+            </div>
+            </Container>
 
         </div>
     )
