@@ -22,7 +22,7 @@ const CustomBreadcrum = ({
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/">
+          <BreadcrumbLink href="/" className="font-semibold flex items-center ">
             <Home className="w-3 h-3 mr-2" />
             Home
           </BreadcrumbLink>
@@ -34,7 +34,7 @@ const CustomBreadcrum = ({
               <BreadcrumbItem>
                 <BreadcrumbLink
                   href={eachItem.link}
-                  className="hover:text-emerald-500"
+                  className="font-semibold hover:text-emerald-500"
                 >
                   {eachItem.label}
                 </BreadcrumbLink>
@@ -43,7 +43,9 @@ const CustomBreadcrum = ({
           ))}
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage>{breadCrumPage}</BreadcrumbPage>
+          <BreadcrumbPage className="font-semibold">
+            {breadCrumPage}
+          </BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
