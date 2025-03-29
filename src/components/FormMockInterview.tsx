@@ -1,14 +1,26 @@
 import { Interview } from "@/types";
 import CustomBreadcrum from "./CustomBreadcrum";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { set, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@clerk/clerk-react";
-import { EOF } from "dns";
 import { toast } from "sonner";
 import Headings from "./Headings";
+import { Button } from "./ui/button";
+import { Trash2 } from "lucide-react";
+import { Separator } from "./ui/separator";
+import {
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
 
 interface FormMockInterviewProps {
   initialData: Interview | null;
@@ -75,13 +87,115 @@ const FormMockInterview = ({ initialData }: FormMockInterviewProps) => {
   }, [initialData, form]);
 
   return (
-    <div className="w-full flex-col space-y-4">
+    <div className="w-full flex flex-col space-y-4">
       <CustomBreadcrum
         breadCrumPage={breadCrumPage}
         breadCrumpItems={[{ label: "Mock Interviews", link: "/generate" }]}
       />
       <div className="mt-4 flex items-center justify-between w-full">
         <Headings title={title} isSubHeading />
+        {initialData && (
+          <Button size={"icon"} variant={"destructive"}>
+            <Trash2 className="min-w-4 min-h-4" />
+          </Button>
+        )}
+      </div>
+      <Separator className="my-4" />
+
+      <div className="my-6">
+        <FormProvider {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmitHandler)}
+            className="w-full p-8 rounded-lg flex flex-col items-start justify-start gap-6 shadow-md"
+          >
+            <FormField
+              control={form.control}
+              name="position"
+              render={({ field }) => (
+                <FormItem className="w-full space-y-4">
+                  <div className="w-full flex items-center justify-between">
+                    <FormLabel className="text-xl">
+                      Job Role / Job Position
+                    </FormLabel>
+                    <FormMessage className="text-sm" />
+                  </div>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      className="h-12 "
+                      placeholder="ex - Data Analyst"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem className="w-full space-y-4">
+                  <div className="w-full flex items-center justify-between">
+                    <FormLabel className="text-xl">Job Description</FormLabel>
+                    <FormMessage className="text-sm" />
+                  </div>
+                  <FormControl>
+                    <Textarea
+                      disabled={loading}
+                      className="h-12 "
+                      placeholder="ex - Describe your job role or position"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="experience"
+              render={({ field }) => (
+                <FormItem className="w-full space-y-4">
+                  <div className="w-full flex items-center justify-between">
+                    <FormLabel className="text-xl">Experience</FormLabel>
+                    <FormMessage className="text-sm" />
+                  </div>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      disabled={loading}
+                      className="h-12 "
+                      placeholder="ex - How many years of experience have in this field"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="techStack"
+              render={({ field }) => (
+                <FormItem className="w-full space-y-4">
+                  <div className="w-full flex items-center justify-between">
+                    <FormLabel className="text-xl">Tech Stacks</FormLabel>
+                    <FormMessage className="text-sm" />
+                  </div>
+                  <FormControl>
+                    <Textarea
+                      disabled={loading}
+                      className="h-12 "
+                      placeholder="ex - How many years of experience have in this field"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </form>
+        </FormProvider>
       </div>
     </div>
   );
