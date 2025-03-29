@@ -9,11 +9,10 @@ import { useAuth } from "@clerk/clerk-react";
 import { toast } from "sonner";
 import Headings from "./Headings";
 import { Button } from "./ui/button";
-import { Trash2 } from "lucide-react";
+import { Loader, Trash2 } from "lucide-react";
 import { Separator } from "./ui/separator";
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -46,7 +45,7 @@ const FormMockInterview = ({ initialData }: FormMockInterviewProps) => {
     defaultValues: initialData || {},
   });
 
-  const { isValid, isSubmitted } = form.formState;
+  const { isValid, isSubmitting } = form.formState;
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { userId } = useAuth();
@@ -65,6 +64,7 @@ const FormMockInterview = ({ initialData }: FormMockInterviewProps) => {
   const onSubmitHandler = async (data: FormData) => {
     try {
       setLoading(true);
+      console.log(data);
     } catch (error) {
       console.log(error);
       toast.error("Error...", {
@@ -125,6 +125,7 @@ const FormMockInterview = ({ initialData }: FormMockInterviewProps) => {
                       className="h-12 "
                       placeholder="ex - Data Analyst"
                       {...field}
+                      value={field.value || ""}
                     />
                   </FormControl>
                 </FormItem>
@@ -146,6 +147,7 @@ const FormMockInterview = ({ initialData }: FormMockInterviewProps) => {
                       className="h-12 "
                       placeholder="ex - Describe your job role or position"
                       {...field}
+                      value={field.value || ""}
                     />
                   </FormControl>
                 </FormItem>
@@ -168,6 +170,7 @@ const FormMockInterview = ({ initialData }: FormMockInterviewProps) => {
                       className="h-12 "
                       placeholder="ex - How many years of experience have in this field"
                       {...field}
+                      value={field.value || ""}
                     />
                   </FormControl>
                 </FormItem>
@@ -187,13 +190,37 @@ const FormMockInterview = ({ initialData }: FormMockInterviewProps) => {
                     <Textarea
                       disabled={loading}
                       className="h-12 "
-                      placeholder="ex - How many years of experience have in this field"
+                      placeholder="ex - Data Science, React.."
                       {...field}
+                      value={field.value || ""}
                     />
                   </FormControl>
                 </FormItem>
               )}
             />
+
+            <div className="w-full flex items-center justify-end gap-6">
+              <Button
+                type="reset"
+                size={"sm"}
+                disabled={isSubmitting || loading}
+                variant={"outline"}
+              >
+                Reset
+              </Button>
+
+              <Button
+                type="submit"
+                size={"sm"}
+                disabled={isSubmitting || loading || !isValid}
+              >
+                {loading ? (
+                  <Loader className="text-gray-50 animate-spin" />
+                ) : (
+                  actions
+                )}
+              </Button>
+            </div>
           </form>
         </FormProvider>
       </div>
