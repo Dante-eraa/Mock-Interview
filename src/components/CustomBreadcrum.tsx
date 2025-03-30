@@ -34,7 +34,7 @@ const CustomBreadcrum = ({
               <BreadcrumbItem>
                 <BreadcrumbLink
                   href={eachItem.link}
-                  className="font-semibold hover:text-emerald-500"
+                  className="font-semibold hover:text-sky-500"
                 >
                   {eachItem.label}
                 </BreadcrumbLink>
