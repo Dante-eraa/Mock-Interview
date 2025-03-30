@@ -21,6 +21,14 @@ import {
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import ChatSession from "@/scripts";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
+import { db } from "@/config/FIrebase.config";
 
 interface FormMockInterviewProps {
   initialData: Interview | null;
@@ -65,6 +73,27 @@ const FormMockInterview = ({ initialData }: FormMockInterviewProps) => {
         description: "New Interview Created successfully...",
       };
 
+  const cleanAIResponse = (responseText: string) => {
+    let cleanText = responseText.trim();
+    cleanText = cleanText.replace(/(json|```|`)/g, "");
+
+    const jsonArrayMatch = cleanText.match(/\[.*\]/s);
+
+    if (jsonArrayMatch) {
+      cleanText = jsonArrayMatch[0];
+    } else {
+      throw new Error(
+        "Failed to retrieve a valid JSON array from the response."
+      );
+    }
+
+    try {
+      return JSON.parse(cleanText);
+    } catch (error) {
+      throw new Error("Invalid JSON format: " + (error as Error)?.message);
+    }
+  };
+
   const generativeAIResponse = async (data: FormData) => {
     const prompt = `
     As an experienced prompt engineer, generate a JSON array containing 5 technical interview questions along with detailed answers based on the following job information. Each object in the array should have the fields "question" and "answer", formatted as follows:
@@ -83,7 +112,9 @@ const FormMockInterview = ({ initialData }: FormMockInterviewProps) => {
     The questions should assess skills in ${data?.techStack} development and best practices, problem-solving, and experience handling complex requirements. Please format the output strictly as an array of JSON objects without any additional labels, code blocks, or explanations. Return only the JSON array with questions and answers.
     `;
     const aiResult = await ChatSession.sendMessage(prompt);
-    console.log(aiResult.response.text().trim());
+    const cleanResponse = cleanAIResponse(aiResult.response.text());
+
+    return cleanResponse;
   };
 
   const onSubmitHandler = async (data: FormData) => {
@@ -93,6 +124,19 @@ const FormMockInterview = ({ initialData }: FormMockInterviewProps) => {
       } else {
         if (isValid) {
           const aiResult = await generativeAIResponse(data);
+
+          const interviewRef = await addDoc(collection(db, "interviews"), {
+            ...data,
+            userId,
+            questions: aiResult,
+            createdAt: serverTimestamp(),
+          });
+
+          const id = interviewRef.id;
+          await updateDoc(doc(db, "interviews", id), {
+            id,
+            updateAt: serverTimestamp(),
+          });
         }
       }
     } catch (error) {
