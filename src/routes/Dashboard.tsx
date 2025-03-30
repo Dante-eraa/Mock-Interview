@@ -68,7 +68,7 @@ const Dashboard = () => {
         </Link>
       </div>
       <Separator className="my-4" />
-      <div className="md:grid grid-cols-3 gap-3 py-4">
+      <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-3  py-4">
         {loading ? (
           Array.from({ length: 6 }).map((_, id) => {
             return <Skeleton key={id} className="h-24 md:h-32 rounded-md" />;

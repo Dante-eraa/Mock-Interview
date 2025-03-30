@@ -6,7 +6,7 @@ import { Card, CardDescription, CardFooter, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { cn } from "@/lib/utils";
 import { TooltipButton } from "./ToolTipButton";
-import { Eye, Newspaper, Pencil, Trash2 } from "lucide-react";
+import { Eye, Newspaper, Sparkles } from "lucide-react";
 
 interface InterviewPinProps {
   interview: Interview;
@@ -25,7 +25,7 @@ const InterviewPin = ({ interview, onMockPage = false }: InterviewPinProps) => {
       <CardDescription className="text-xs">
         {interview?.description}
       </CardDescription>
-      <div className="w-full flex items-center gap-3 flex-wrap">
+      <div className="w-full flex items-center  gap-3 flex-wrap">
         {interview.techStack.split(",").map((eachWord, id) => {
           return (
             <Badge
@@ -60,18 +60,6 @@ const InterviewPin = ({ interview, onMockPage = false }: InterviewPinProps) => {
         {!onMockPage && (
           <div className="flex items-center justify-center">
             <TooltipButton
-              content="Edit"
-              buttonVariant={"ghost"}
-              disbaled={false}
-              buttonClassName="hover:text-sky-500"
-              icon={<Pencil />}
-              loading={false}
-              onClick={() => {
-                navigate(`/generate/${interview.id}`, { replace: true });
-              }}
-            />
-
-            <TooltipButton
               content="View"
               buttonVariant={"ghost"}
               disbaled={false}
@@ -92,6 +80,20 @@ const InterviewPin = ({ interview, onMockPage = false }: InterviewPinProps) => {
               loading={false}
               onClick={() => {
                 navigate(`/generate/feedback/${interview.id}`, {
+                  replace: true,
+                });
+              }}
+            />
+
+            <TooltipButton
+              content="Start"
+              buttonVariant={"ghost"}
+              disbaled={false}
+              buttonClassName="hover:text-sky-500"
+              icon={<Sparkles />}
+              loading={false}
+              onClick={() => {
+                navigate(`/generate/interview/${interview.id}`, {
                   replace: true,
                 });
               }}
