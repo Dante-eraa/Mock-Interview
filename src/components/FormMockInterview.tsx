@@ -24,6 +24,7 @@ import ChatSession from "@/scripts";
 import {
   addDoc,
   collection,
+  doc,
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
@@ -120,6 +121,17 @@ const FormMockInterview = ({ initialData }: FormMockInterviewProps) => {
     try {
       setLoading(true);
       if (initialData) {
+        if (isValid) {
+          const aiResult = await generativeAIResponse(data);
+          await updateDoc(doc(db, "interviews", initialData?.id), {
+            questions: aiResult,
+            ...data,
+            updateAt: serverTimestamp(),
+          });
+          toast.success(toastMessage.title, {
+            description: toastMessage.description,
+          });
+        }
       } else {
         if (isValid) {
           const aiResult = await generativeAIResponse(data);
