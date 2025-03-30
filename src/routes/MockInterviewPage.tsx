@@ -19,9 +19,6 @@ const MockInterviewPage = () => {
   const [isWebCamEnabled, setIsWebCamEnabled] = useState(false);
 
   const navigate = useNavigate();
-  if (!interviewId) {
-    navigate("/generate", { replace: true });
-  }
 
   useEffect(() => {
     const fetchInterview = async () => {
@@ -50,6 +47,9 @@ const MockInterviewPage = () => {
 
   if (isLoading) {
     return <LoaderPage className="w-full h-[60vh]" />;
+  }
+  if (!interviewId) {
+    navigate("/generate", { replace: true });
   }
 
   return (
