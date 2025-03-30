@@ -24,7 +24,6 @@ import ChatSession from "@/scripts";
 import {
   addDoc,
   collection,
-  doc,
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
@@ -125,20 +124,19 @@ const FormMockInterview = ({ initialData }: FormMockInterviewProps) => {
         if (isValid) {
           const aiResult = await generativeAIResponse(data);
 
-          const interviewRef = await addDoc(collection(db, "interviews"), {
+          await addDoc(collection(db, "interviews"), {
             ...data,
             userId,
             questions: aiResult,
             createdAt: serverTimestamp(),
           });
 
-          const id = interviewRef.id;
-          await updateDoc(doc(db, "interviews", id), {
-            id,
-            updateAt: serverTimestamp(),
+          toast.success(toastMessage.title, {
+            description: toastMessage.description,
           });
         }
       }
+      navigate("/generate", { replace: true });
     } catch (error) {
       console.log(error);
       toast.error("Error...", {
