@@ -1,5 +1,5 @@
 import Container from "@/components/Container";
-import { Sparkles } from "lucide-react";
+import { Box } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Marquee from "react-fast-marquee";
 
@@ -51,19 +51,17 @@ const Home = () => {
             className="w-full h-full object-cover"
           />
 
-          <div className="absolute top-4 left-4 px-4 py-2 rounded-md bg-white/40 backdrop-blur-md">
-            Inteviews Copilot&copy;
-          </div>
-
           <div className="hidden md:block absolute w-80 bottom-4 right-4 px-4 py-2 rounded-md bg-white/60 backdrop-blur-md">
-            <h2 className="text-neutral-800 font-semibold">Kick Start</h2>
+            <h2 className="text-neutral-800 font-semibold">
+              Kick Start Your Carrer
+            </h2>
             <p className="text-sm text-neutral-500">
               An AI-powered mock interview platform that helps you practice, get
               real-time feedback, and ace your interviews with confidence.
             </p>
 
-            <Button className="mt-3 bg-sky-500">
-              Generate <Sparkles />
+            <Button className="mt-3 bg-sky-500 hover:bg-sky-700">
+              Generate <Box />
             </Button>
           </div>
         </div>
@@ -132,8 +130,10 @@ const Home = () => {
               and expert insights to boost your confidence and secure your dream
               job
             </p>
-            <Button className=" bg-sky-500">
-              <Link to={"/generate"}>Generate</Link>
+            <Button className="text-lg bg-sky-500 hover:bg-sky-700">
+              <Link to={"/generate"} className="flex gap-2 items-center">
+                Generate <Box />
+              </Link>
             </Button>
           </div>
         </div>
