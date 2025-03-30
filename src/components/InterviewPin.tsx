@@ -24,14 +24,14 @@ const InterviewPin = ({ interview, onMockPage = false }: InterviewPinProps) => {
         {interview?.description}
       </CardDescription>
       <div className="w-full flex items-center gap-3 flex-wrap">
-        {interview.techStack.split(",").map((eachword, id) => {
+        {interview.techStack.split(",").map((eachWord, id) => {
           return (
             <Badge
               variant={"outline"}
               key={id}
               className="text-xs text-muted-foreground hover:text-sky-900 hover:border-sky-100 hover:bg-sky-400"
             >
-              {eachword}
+              {eachWord}
             </Badge>
           );
         })}
@@ -41,7 +41,16 @@ const InterviewPin = ({ interview, onMockPage = false }: InterviewPinProps) => {
           "w-full flex items-center p-0",
           onMockPage ? "justify-end" : "justify-between"
         )}
-      ></CardFooter>
+      >
+        <p className="text-sm text-muted-foreground truncate whitespace-nowrap">
+          {`${new Date(interview.createdAt.toDate()).toLocaleDateString(
+            "en-US",
+            {
+              dateStyle: "long",
+            }
+          )}`}
+        </p>
+      </CardFooter>
     </Card>
   );
 };
