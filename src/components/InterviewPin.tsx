@@ -2,7 +2,7 @@ import { Interview } from "@/types";
 
 interface InterviewPinProps {
   interview: Interview;
-  onMockPage;
+  onMockPage?: boolean;
 }
 
 const InterviewPin = ({ interview }: InterviewPinProps) => {
