@@ -55,6 +55,9 @@ const InterviewPin = ({ interview, onMockPage = false }: InterviewPinProps) => {
             }
           )}`}
         </p>
+        {!onMockPage && (
+          <div className="flex items-center justify-center"></div>
+        )}
       </CardFooter>
     </Card>
   );
