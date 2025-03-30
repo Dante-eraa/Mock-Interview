@@ -48,6 +48,11 @@ const InterviewPin = ({ interview, onMockPage = false }: InterviewPinProps) => {
             {
               dateStyle: "long",
             }
+          )} - ${new Date(interview.createdAt.toDate()).toLocaleTimeString(
+            "en-US",
+            {
+              timeStyle: "short",
+            }
           )}`}
         </p>
       </CardFooter>
