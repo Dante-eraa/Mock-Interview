@@ -58,7 +58,7 @@ const MockInterviewStartPage = () => {
   }
 
   return (
-    <div className="flex flex-col w-full gap-8 py-5">
+    <div className="flex flex-col w-full gap-8 py-5 relative">
       <CustomBreadcrum
         breadCrumPage="Start"
         breadCrumpItems={[
@@ -126,11 +126,32 @@ const MockInterviewStartPage = () => {
       </div>
       {interview?.questions && interview?.questions.length > 0 && (
         <div className="mt-4 w-full flex flex-col items-start gap-4">
-          <QuestionForm
-            questions={interview?.questions}
-            isWebCamEnabled={isWebCamEnabled}
-            setIsWebCamEnabled={setIsWebCamEnabled}
-          />
+          <QuestionForm questions={interview?.questions} />
+        </div>
+      )}
+      {!isWebCamEnabled && (
+        <div className="absolute h-full w-full  backdrop-blur-sm flex flex-col gap-3 items-center justify-center">
+          <Alert className="w-3/4 bg-sky-100 border-sky-500 text-sky-600">
+            <div className="flex items-center gap-3 mb-2">
+              <Lightbulb className="w-4 h-4 text-sky-900" />
+              <AlertTitle className="text-sky-900">
+                AI Mock Interview Alert
+              </AlertTitle>
+            </div>
+            <div className="flex items-center gap-2 px-2 py-2">
+              <Video className="text-sky-600 w-5 h-5" />
+              <AlertTitle className="text-sky-600">Enable Webcam</AlertTitle>
+            </div>
+            <AlertDescription className="mt-3">
+              To get the best experience in your AI mock interview, please
+              enable your webcam. Ensuring your webcam is active will allow
+              real-time video analysis, helping provide accurate feedback and
+              improve your interview preparation effectively.
+            </AlertDescription>
+          </Alert>
+          <Button onClick={() => setIsWebCamEnabled(!isWebCamEnabled)}>
+            Enable Webcam <WebcamIcon className="min-w-5 min-h-5" />
+          </Button>
         </div>
       )}
     </div>
