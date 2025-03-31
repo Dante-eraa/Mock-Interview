@@ -15,6 +15,7 @@ import { Lightbulb, Mic, Video, WebcamIcon } from "lucide-react";
 import Headings from "@/components/Headings";
 import Webcam from "react-webcam";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import QuestionForm from "@/components/QuestionForm";
 
 const MockInterviewStartPage = () => {
   const { interviewId } = useParams<{ interviewId: string }>();
@@ -124,7 +125,13 @@ const MockInterviewStartPage = () => {
         </Alert>
       </div>
       {interview?.questions && interview?.questions.length > 0 && (
-        <div className="mt-4 w-full flex flex-col items-start gap-4"></div>
+        <div className="mt-4 w-full flex flex-col items-start gap-4">
+          <QuestionForm
+            questions={interview?.questions}
+            isWebCamEnabled={isWebCamEnabled}
+            setIsWebCamEnabled={setIsWebCamEnabled}
+          />
+        </div>
       )}
     </div>
   );
