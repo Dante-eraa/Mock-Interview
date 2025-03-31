@@ -113,6 +113,8 @@ function App() {
 ## Screenshots
 
 ![App Screenshot](./src/assets/screenshot/Screenshot-lg.png)
+![App Screenshot](./src/assets/screenshot/Screenshot-md.png)
+![App Screenshot](./src/assets/screenshot/Screenshot-sm.png)
 
 ## Run Locally
 
