@@ -7,15 +7,9 @@ import RecordAnswer from "./RecordAnswer";
 
 interface QuestionFormProps {
   questions: { question: string; answer: string }[];
-  isWebCamEnabled: boolean;
-  setIsWebCamEnabled: (value: boolean) => void;
 }
 
-const QuestionForm = ({
-  questions,
-  isWebCamEnabled,
-  setIsWebCamEnabled,
-}: QuestionFormProps) => {
+const QuestionForm = ({ questions }: QuestionFormProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const [currentSpeech, setCurrentSpeech] =
@@ -80,11 +74,7 @@ const QuestionForm = ({
                   onClick={() => handlePlayQuestion(eachTab.question)}
                 />
               </div>
-              <RecordAnswer
-                question={eachTab}
-                isWebCamEnabled={isWebCamEnabled}
-                setIsWebCamEnabled={setIsWebCamEnabled}
-              />
+              <RecordAnswer question={eachTab} />
             </TabsContent>
           );
         })}

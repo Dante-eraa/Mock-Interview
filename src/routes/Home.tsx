@@ -59,10 +59,11 @@ const Home = () => {
               An AI-powered mock interview platform that helps you practice, get
               real-time feedback, and ace your interviews with confidence.
             </p>
-
-            <Button className="mt-3 bg-sky-500 hover:bg-sky-700">
-              Generate <Box />
-            </Button>
+            <Link to={"/generate"}>
+              <Button className="mt-3 bg-sky-500 hover:bg-sky-700">
+                Generate <Box />
+              </Button>
+            </Link>
           </div>
         </div>
       </Container>
