@@ -131,7 +131,7 @@ function App() {
 Clone the project
 
 ```bash
-  git clone [https://link-to-project](https://github.com/Dante-eraa/Mock-Interview.git)
+  git clone https://github.com/Dante-eraa/Mock-Interview.git
 ```
 
 Go to the project directory
