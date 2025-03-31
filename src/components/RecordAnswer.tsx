@@ -7,13 +7,23 @@ import { CircleStop, Loader, Mic, RefreshCcw, Save } from "lucide-react";
 import { toast } from "sonner";
 import { useEffect } from "react";
 import ChatSession from "@/scripts";
+import SaveModal from "./SaveModal";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  serverTimestamp,
+  where,
+} from "firebase/firestore";
+import { db } from "@/config/FIrebase.config";
 interface RecordAnswerProps {
   question: { question: string; answer: string };
 }
 
 interface AiResponse {
   ratings: number;
-  feeback: string;
+  feedback: string;
 }
 
 const RecordAnswer = ({ question }: RecordAnswerProps) => {
@@ -52,10 +62,61 @@ const RecordAnswer = ({ question }: RecordAnswerProps) => {
         question.answer,
         userAnswer
       );
-      console.log(aiResult);
+
       setAiResult(aiResult);
     } else {
       startSpeechToText();
+    }
+  };
+
+  const saveUserAnswer = async () => {
+    setLoading(true);
+    console.log(aiResult);
+    if (!aiResult) {
+      return;
+    }
+    const currentQuestion = question.question;
+    try {
+      const userAnswerQuery = query(
+        collection(db, "userAnswers"),
+        where("userId", "==", userId),
+        where("question", "==", currentQuestion)
+      );
+
+      const querySnap = await getDocs(userAnswerQuery);
+
+      if (!querySnap.empty) {
+        console.log("Query Snap size", querySnap.size);
+        toast.info("Already answered", {
+          description: "You have already answered this question.",
+        });
+        return;
+      } else {
+        const questionAnswerRef = await addDoc(collection(db, "userAnswers"), {
+          mockIdRef: interviewId,
+          question: question.question,
+          correct_ans: question.answer,
+          user_ans: userAnswer,
+          feedback: aiResult.feedback,
+          rating: aiResult.ratings,
+          userId,
+          createdAt: serverTimestamp(),
+        });
+
+        toast.success("Saved", {
+          description: "Your answer is successfully saved.",
+        });
+        setUserAnswer("");
+        stopSpeechToText();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error", {
+        description: "An error occured while saving the answer",
+      });
+    } finally {
+      setLoading(false);
+      setOpen(false);
     }
   };
 
@@ -104,7 +165,7 @@ const RecordAnswer = ({ question }: RecordAnswerProps) => {
       toast.error("Error", {
         description: "An error occured while generating feedback",
       });
-      return { ratings: 0, feeback: "Unable to generate feedback" };
+      return { ratings: 0, feedback: "Unable to generate feedback" };
     } finally {
       setIsAIGenerating(false);
     }
@@ -127,6 +188,12 @@ const RecordAnswer = ({ question }: RecordAnswerProps) => {
 
   return (
     <div className="w-full flex flex-col items-center gap-8 mt-4">
+      <SaveModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={saveUserAnswer}
+        loading={loading}
+      />
       <div className="flex items-center justify-center gap-3">
         <TooltipButton
           content={isRecording ? "Stop Recording" : "Start Recording"}
