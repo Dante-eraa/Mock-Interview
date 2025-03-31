@@ -58,7 +58,7 @@ const MockInterviewStartPage = () => {
   }
 
   return (
-    <div className="flex flex-col w-full gap-8 py-5 relative">
+    <div className="flex flex-col w-full gap-8 py-5 ">
       <CustomBreadcrum
         breadCrumPage="Start"
         breadCrumpItems={[
@@ -130,7 +130,7 @@ const MockInterviewStartPage = () => {
         </div>
       )}
       {!isWebCamEnabled && (
-        <div className="absolute h-full w-full  backdrop-blur-sm flex flex-col gap-3 items-center justify-center">
+        <div className="fixed top-0 right-0 left-0 bottom-0 h-full w-full  backdrop-blur-sm flex flex-col gap-3 items-center justify-center">
           <Alert className="w-3/4 bg-sky-100 border-sky-500 text-sky-600">
             <div className="flex items-center gap-3 mb-2">
               <Lightbulb className="w-4 h-4 text-sky-900" />
