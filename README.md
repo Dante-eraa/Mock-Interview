@@ -191,10 +191,4 @@ VITE_GEMINI_API=
 import.meta.env.VITE_FIREBASE_API_KEY;
 ```
 
-📌 **In Node.js (Backend)**:
-
-```js
-process.env.VITE_FIREBASE_API_KEY;
-```
-
 ⚡ **Make sure all variables are correctly set before running the project!** 🚀
